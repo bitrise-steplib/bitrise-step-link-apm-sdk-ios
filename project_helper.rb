@@ -157,11 +157,6 @@ class ProjectHelper
     dependent_targets
   end
 
-  def target_team_id(target_name)
-    settings = xcodebuild_target_build_settings(target_name)
-    settings['DEVELOPMENT_TEAM']
-  end
-
   def workspace?
     extname = File.extname(@project_path)
     extname == '.xcworkspace'
@@ -194,46 +189,4 @@ class ProjectHelper
     product_reference.path.end_with?('.app', '.appex')
   end
 
-  def xcodebuild_target_build_settings(target)
-    raise 'xcodebuild -showBuildSettings failed: target not specified' if target.to_s.empty?
-
-    settings = @build_settings_by_target[target]
-    return settings if settings
-
-    cmd = [
-      'xcodebuild',
-      '-showBuildSettings',
-      '-project',
-      "\"#{@targets_container_project_path}\"",
-      '-target',
-      "\"#{target}\"",
-      '-configuration',
-      "\"#{@configuration_name}\""
-    ].join(' ')
-
-    # Log.debug("$ #{cmd}")
-    out = `#{cmd}`
-    raise "#{cmd} failed, out: #{out}" unless $CHILD_STATUS.success?
-
-    settings = {}
-    lines = out.split(/\n/)
-    lines.each do |line|
-      line = line.strip
-      next unless line.include?(' = ')
-
-      split = line.split(' = ')
-      next unless split.length == 2
-
-      value = split[1].strip
-      next if value.empty?
-
-      key = split[0].strip
-      next if key.empty?
-
-      settings[key] = value
-    end
-
-    @build_settings_by_target[target] = settings
-    settings
-  end
 end
