@@ -49,7 +49,7 @@ class ProjectHelper
     @build_settings_by_target = {}
   end
 
-  def link_static_library(target_name, development_team)
+  def link_static_library(target_name)
     project = Xcodeproj::Project.open(@targets_container_project_path)
     project.targets.each do |target_obj|
         target_found = true
@@ -68,48 +68,6 @@ class ProjectHelper
         end
     end
     project.save
-  end
-
-  def project_team_id
-    team_id = nil
-
-    project = Xcodeproj::Project.open(@targets_container_project_path)
-    attributes = project.root_object.attributes['TargetAttributes'] || {}
-
-    @targets.each do |target|
-      target_name = target.name
-
-      current_team_id = target_team_id(target_name)
-      # Log.debug("#{target_name} target build settings team id: #{current_team_id}")
-
-      unless current_team_id
-        # Log.warn("no DEVELOPMENT_TEAM build settings found for target: #{target_name}, checking target attributes...")
-
-        target_attributes = attributes[target.uuid] if attributes
-        target_attributes_team_id = target_attributes['DevelopmentTeam'] if target_attributes
-        # Log.debug("#{target_name} target attributes team id: #{target_attributes_team_id}")
-
-        unless target_attributes_team_id
-          # Log.warn("no DevelopmentTeam target attribute found for target: #{target_name}")
-          next
-        end
-
-        current_team_id = target_attributes_team_id
-      end
-
-      if team_id.nil?
-        team_id = current_team_id
-        next
-      end
-
-      next if team_id == current_team_id
-
-      # Log.warn("target team id: #{current_team_id} does not match to the already registered team id: #{team_id}")
-      team_id = nil
-      break
-    end
-
-    team_id
   end
 
   private
