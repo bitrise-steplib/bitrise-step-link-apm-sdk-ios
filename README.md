@@ -5,9 +5,6 @@ Link the Bitrise APM library during the XCode build process into the resulting a
 The step works by modifying the project.pbxproj descriptor to include necessary flags and
 variables for linking.
 
-It finds the target project by referencing the $BITRISE_PROJECT_PATH and $BITRISE_SCHEME
-variables set during project scanning phase, you do not have to explicitly set these inputs.
-
 ## How to use this Step
 
 Can be run directly with the [bitrise CLI](https://github.com/bitrise-io/bitrise),
