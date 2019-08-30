@@ -13,17 +13,33 @@ workflows:
     - APM_COLLECTOR_TOKEN: 951fc805-5bb3-4a36-9c5b-7443b51d7067 #dummy token
     steps:
     - script:
+        run_if: .IsCI
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            set -e
+            set -x
+
+            gem install bundler --force
+            gem update --system
+            bundle update --bundler
+    - script:
         title: Run rspec tests
         inputs:
         - content: |-
             #!/bin/bash
-            rspec
+            set -e
+            set -x
+
+            bundle exec rspec
     - script:
         title: Cleanup _tmp dir
         inputs:
         - content: |-
             #!/bin/bash
-            set -ev
+            set -e
+            set -x
+
             rm -rf "_tmp"
             mkdir -p "_tmp"
     - change-workdir:
@@ -35,6 +51,9 @@ workflows:
         inputs:
         - content: |-
             #!/bin/bash
+            set -e
+            set -x
+
             git clone $TEST_REPO
     - path::./:
         title: Run step
@@ -45,4 +64,21 @@ workflows:
         inputs:
         - content: |-
             #!/bin/bash
+            set -e
+            set -x
+
             ruby ./../step_test.rb "$BITRISE_PROJECT_PATH"
+    - script:
+        run_if: .IsCI
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            set -e
+            set -x
+
+            envman add --key BITRISE_PROJECT_ZIP --value $(dirname "${BITRISE_PROJECT_PATH}")
+    - create-zip@0.9.0:
+        run_if: .IsCI
+        inputs:
+        - destination: $BITRISE_DEPLOY_DIR
+        - source_path: $BITRISE_PROJECT_ZIP
