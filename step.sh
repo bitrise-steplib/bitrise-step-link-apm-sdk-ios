@@ -9,7 +9,7 @@ if [ "$CI" == "true" ]; then
     gem install bundler --force
     gem update --system
 
-    bundle update --bundler --gemfile $GEMFILE
+    bundle update --bundler $GEMFILE
 fi  
 
 #install step dependencies
