@@ -21,6 +21,9 @@ class ProjectHelper
 
     # read scheme application targets
     @main_target, @targets_container_project_path = read_scheme_archivable_target_and_container_project(scheme, scheme_container_project_path)
+
+    puts "Scheme target: #{@main_target}, container path: #{@targets_container_project_path}"
+
     raise "failed to find #{scheme_name} scheme's main archivable target" unless @main_target
 
   end
