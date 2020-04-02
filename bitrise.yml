@@ -3,7 +3,7 @@ default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 
 app:
   envs: 
-  - APM_COLLECTOR_TOKEN: 951fc805-5bb3-4a36-9c5b-7443b51d7067 #dummy token
+  - APM_COLLECTOR_TOKEN: 951fc805-5bb3-4a36-9c5b-DUMMY51d7067 #dummy token
   - ORIGINAL_WORK_DIR: $BITRISE_SOURCE_DIR
 
 workflows:
@@ -11,7 +11,8 @@ workflows:
     after_run:
     - _prepare
     - test_project
-    - test_workflow
+    - test_workflow_swift
+    - test_workflow_objc
 
 
   test_project:
@@ -22,11 +23,19 @@ workflows:
     after_run:
     - _common
 
-  test_workflow:
+  test_workflow_swift:
     envs:
     - TEST_REPO: https://github.com/bitrise-io/sample-apps-ios-workspace-swift.git
     - BITRISE_PROJECT_PATH: "$ORIGINAL_WORK_DIR/_tmp/sample-apps-ios-workspace-swift/sample-apps-ios-workspace-swift.xcworkspace"
     - BITRISE_SCHEME: "sample-apps-ios-workspace-swift"
+    after_run:
+    - _common
+
+  test_workflow_objc:
+    envs:
+    - TEST_REPO: https://github.com/bitrise-io/sample-apps-ios-simple-objc.git
+    - BITRISE_PROJECT_PATH: "$ORIGINAL_WORK_DIR/_tmp/sample-apps-ios-simple-objc/ios-simple-objc/ios-simple-objc.xcodeproj/"
+    - BITRISE_SCHEME: "ios-simple-objc"
     after_run:
     - _common
 

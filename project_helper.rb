@@ -31,19 +31,35 @@ class ProjectHelper
   def link_static_library()
     @project.targets.each do |target_obj|
         next if target_obj.name != @main_target.name 
+
+        puts "Found target"
     
         target_obj.build_configuration_list.build_configurations.each do |build_configuration| 
             configuration_found = true
-        
 
+            
+            # Add other linker flags
             build_settings = build_configuration.build_settings
             codesign_settings = {
-                'OTHER_LDFLAGS' => '$(inherited) -force_load libTrace.a',
+                'OTHER_LDFLAGS' => '$(inherited) -ObjC -force_load libTrace.a',
                 'LIBRARY_SEARCH_PATH' => '$(inherited) $(PROJECT_DIR)/apm-cocoa-sdk',
             }
             build_settings.merge!(codesign_settings)
     
+            puts "Added other linker flag"
+
         end
+
+        # Add system libraries 
+        target_obj.add_system_library_tbd("c++")
+        target_obj.add_system_library_tbd("z")
+        
+        puts "Added system libraries"
+
+        # Add system frameworks
+        target_obj.add_system_framework("SystemConfiguration")
+
+        puts "Added system frameworks"
     end
     @project.save
   end

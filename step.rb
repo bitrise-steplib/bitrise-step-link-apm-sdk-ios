@@ -33,11 +33,14 @@ if tmpf == nil
     exit 1
 end
 
+puts "Downloaded Trace library"
+
+puts "Starting step with path: #{project_path}, scheme: #{scheme}, trace version: #{lib_version}"
+puts
+
 FileUtils.mv(tmpf.path, "#{File.dirname(project_path)}/#{tmpf.original_filename}")
 
 helper = ProjectHelper.new(project_path, scheme)
-
-puts "Starting step with path: #{project_path}, scheme: #{scheme}, trace version: #{lib_version}"
 
 begin
     puts "Updating project to link Trace library"
@@ -57,4 +60,5 @@ rescue Exception => e
     exit 1
 end
 
+puts 
 puts "Done!"
