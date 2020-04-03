@@ -23,9 +23,26 @@ class ProjectHelper
     @main_target, @targets_container_project_path = read_scheme_archivable_target_and_container_project(scheme, scheme_container_project_path)
 
     puts "Scheme target: #{@main_target}, container path: #{@targets_container_project_path}"
+    puts 
 
     raise "failed to find #{scheme_name} scheme's main archivable target" unless @main_target
 
+  end
+
+  def link_swift_framework_if_objective_c_only_project()
+    puts "Writting swift file to project"
+
+    # create swift file
+    swiftPath = "#{File.dirname(@project.path)}/bitrise_empty_swift_file.swift"
+
+    # write file to root of xcode project
+    File.open(swiftPath, "w") do |f|     
+      f.write("// Empty Swift file for Xcode to enable swift inside project")   
+    end
+
+    @swiftFile = @project.new_file(swiftPath)
+
+    puts "Written swift file to project"
   end
 
   def link_static_library()
@@ -33,7 +50,15 @@ class ProjectHelper
         next if target_obj.name != @main_target.name 
 
         puts "Found target"
-    
+
+        if (!@swiftFile.nil?)
+          puts "Writting swift file to target"
+
+          buildFiles = target_obj.add_file_references([@swiftFile])
+
+          puts "Written swift file to target"
+        end 
+
         target_obj.build_configuration_list.build_configurations.each do |build_configuration| 
             configuration_found = true
 
@@ -43,10 +68,12 @@ class ProjectHelper
             codesign_settings = {
                 'OTHER_LDFLAGS' => '$(inherited) -ObjC -force_load libTrace.a',
                 'LIBRARY_SEARCH_PATH' => '$(inherited) $(PROJECT_DIR)/apm-cocoa-sdk',
+                'SWIFT_VERSION' => 5.0
             }
             build_settings.merge!(codesign_settings)
     
             puts "Added other linker flag"
+            puts "New build settings: #{build_settings}"
 
         end
 
@@ -62,6 +89,8 @@ class ProjectHelper
         puts "Added system frameworks"
     end
     @project.save
+
+    puts "Saving project"
   end
 
   def register_resource()

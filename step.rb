@@ -33,8 +33,9 @@ if tmpf == nil
     exit 1
 end
 
+puts 
 puts "Downloaded Trace library"
-
+puts 
 puts "Starting step with path: #{project_path}, scheme: #{scheme}, trace version: #{lib_version}"
 puts
 
@@ -43,7 +44,9 @@ FileUtils.mv(tmpf.path, "#{File.dirname(project_path)}/#{tmpf.original_filename}
 helper = ProjectHelper.new(project_path, scheme)
 
 begin
+    puts 
     puts "Updating project to link Trace library"
+    helper.link_swift_framework_if_objective_c_only_project()
     helper.link_static_library()
     puts "Updated project with Trace library"
 rescue Exception => e
