@@ -30,7 +30,15 @@ class ProjectHelper
   end
 
   def link_swift_framework_if_objective_c_only_project()
-    puts "Writting swift file to project"
+    hasSwift = @project.files.find do |file| file.path.end_with?(".swift") end
+
+    if hasSwift 
+      puts "Project already has Swift files.."
+
+      return
+    end
+
+    puts "Writting swift file to project since the project does not have any files"
 
     # create swift file
     swiftPath = "#{File.dirname(@project.path)}/bitrise_empty_swift_file.swift"
@@ -68,8 +76,13 @@ class ProjectHelper
             codesign_settings = {
                 'OTHER_LDFLAGS' => '$(inherited) -ObjC -force_load libTrace.a',
                 'LIBRARY_SEARCH_PATH' => '$(inherited) $(PROJECT_DIR)/apm-cocoa-sdk',
-                'SWIFT_VERSION' => 5.0
+                
             }
+
+            if (!@swiftFile.nil?)
+              codesign_settings['SWIFT_VERSION'] = 5.0
+            end 
+
             build_settings.merge!(codesign_settings)
     
             puts "Added other linker flag"
