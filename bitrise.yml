@@ -109,5 +109,5 @@ workflows:
         run_if: .IsCI
         title: Zip & export the modified iOS project
         inputs:
-        - source_path: $BITRISE_PROJECT_PATH
+        - source_path: "/Users/vagrant/git/_tmp/"
         - destination: $BITRISE_DEPLOY_DIR
