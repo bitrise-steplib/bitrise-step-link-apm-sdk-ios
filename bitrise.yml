@@ -101,10 +101,13 @@ workflows:
             #!/usr/bin/env bash
             set -ex
 
+            echo $BITRISE_PROJECT_PATH
+            echo $BITRISE_DEPLOY_DIR
+
             ruby ./../step_test.rb "$BITRISE_PROJECT_PATH"
     - create-zip@0.9.0:
         run_if: .IsCI
         title: Zip & export the modified iOS project
         inputs:
-        - destination: $BITRISE_DEPLOY_DIR
         - source_path: $BITRISE_PROJECT_PATH
+        - destination: $BITRISE_DEPLOY_DIR
