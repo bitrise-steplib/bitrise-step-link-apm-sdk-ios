@@ -11,9 +11,8 @@ workflows:
     after_run:
     - _prepare
     - test_project
-    - test_workflow_swift
     - test_workflow_objc
-
+    - test_workflow_swift
 
   test_project:
     envs:
