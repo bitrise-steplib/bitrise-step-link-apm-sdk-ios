@@ -91,15 +91,31 @@ class ProjectHelper
         end
 
         # Add system libraries 
-        target_obj.add_system_library_tbd("c++")
-        target_obj.add_system_library_tbd("z")
-        
-        puts "Added system libraries"
+
+        if !target_obj.frameworks_build_phase.file_display_names.include?("libc++.tbd")
+          puts "Added c++ library"
+
+          target_obj.add_system_library_tbd("c++")  
+        else 
+          puts "libc++.tbd library already exist"
+        end
+
+        if !target_obj.frameworks_build_phase.file_display_names.include?("libz.tbd")
+          puts "Added z library"
+
+          target_obj.add_system_library_tbd("z")  
+        else 
+          puts "libz.tbd library already exist"
+        end
 
         # Add system frameworks
-        target_obj.add_system_framework("SystemConfiguration")
+        if !target_obj.frameworks_build_phase.file_display_names.include?("SystemConfiguration.framework")
+          puts "Added SystemConfiguration frameworks"
 
-        puts "Added system frameworks"
+          target_obj.add_system_framework("SystemConfiguration")  
+        else 
+          puts "SystemConfiguration framework already exist"
+        end
     end
     @project.save
 
