@@ -43,14 +43,17 @@ project.targets.each do |target_obj|
     
     if !frameworks_build_phase.file_display_names.include?("SystemConfiguration.framework")
         puts "Target does not contain SystemConfiguration framework"
+        exit 1
     end
     
     if !frameworks_build_phase.file_display_names.include?('libc++.tbd')
         puts "Target does not contain c++ library"
+        exit 1
     end
     
     if !frameworks_build_phase.file_display_names.include?('libz.tbd')
         puts "Target does not contain Z library"
+        exit 1
     end
 end
 
@@ -72,6 +75,7 @@ plist = Xcodeproj::Plist.read_from_path(bitrise_configuration_path)
 
 if plist.nil?
     puts "plist does not exist"
+    exit 1
 end
 
 if plist['APM_COLLECTOR_TOKEN'] != ENV['APM_COLLECTOR_TOKEN']
