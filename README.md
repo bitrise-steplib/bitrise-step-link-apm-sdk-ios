@@ -2,7 +2,7 @@
 
 Link the Bitrise APM library during the XCode build process into the resulting artifact.
 
-The step works by modifying the project.pbxproj descriptor to include necessary flags and
+The step works by modifying the project.pbxproj descriptor to include necessary flags, frameworks and
 variables for linking.
 
 ## How to use this Step

@@ -11,8 +11,8 @@ workflows:
     after_run:
     - _prepare
     - test_project
-    - test_workflow
-
+    - test_workflow_objc
+    - test_workflow_swift
 
   test_project:
     envs:
@@ -22,11 +22,19 @@ workflows:
     after_run:
     - _common
 
-  test_workflow:
+  test_workflow_swift:
     envs:
     - TEST_REPO: https://github.com/bitrise-io/sample-apps-ios-workspace-swift.git
     - BITRISE_PROJECT_PATH: "$ORIGINAL_WORK_DIR/_tmp/sample-apps-ios-workspace-swift/sample-apps-ios-workspace-swift.xcworkspace"
     - BITRISE_SCHEME: "sample-apps-ios-workspace-swift"
+    after_run:
+    - _common
+
+  test_workflow_objc:
+    envs:
+    - TEST_REPO: https://github.com/bitrise-io/sample-apps-ios-simple-objc.git
+    - BITRISE_PROJECT_PATH: "$ORIGINAL_WORK_DIR/_tmp/sample-apps-ios-simple-objc/ios-simple-objc/ios-simple-objc.xcodeproj"
+    - BITRISE_SCHEME: "ios-simple-objc"
     after_run:
     - _common
 
@@ -95,8 +103,7 @@ workflows:
 
             ruby ./../step_test.rb "$BITRISE_PROJECT_PATH"
     - create-zip@0.9.0:
-        run_if: .IsCI
         title: Zip & export the modified iOS project
         inputs:
-        - destination: $BITRISE_DEPLOY_DIR
         - source_path: $BITRISE_PROJECT_PATH
+        - destination: $BITRISE_DEPLOY_DIR

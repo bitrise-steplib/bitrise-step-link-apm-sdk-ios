@@ -21,28 +21,105 @@ class ProjectHelper
 
     # read scheme application targets
     @main_target, @targets_container_project_path = read_scheme_archivable_target_and_container_project(scheme, scheme_container_project_path)
+
+    puts "Scheme target: #{@main_target}, container path: #{@targets_container_project_path}"
+    puts 
+
     raise "failed to find #{scheme_name} scheme's main archivable target" unless @main_target
 
+  end
+
+  def link_swift_framework_if_objective_c_only_project()
+    hasSwift = @project.files.find do |file| file.path.end_with?(".swift") end
+
+    if hasSwift 
+      puts "Project already has Swift files.."
+
+      return
+    end
+
+    puts "Writing swift file to project since the project does not have any files"
+
+    # create swift file
+    swiftPath = "#{File.dirname(@project.path)}/bitrise_empty_swift_file.swift"
+
+    # write file to root of xcode project
+    File.open(swiftPath, "w") do |f|     
+      f.write("// Empty Swift file for Xcode to enable swift inside project")   
+    end
+
+    @swiftFile = @project.new_file(swiftPath)
+
+    puts "Written swift file to project"
   end
 
   def link_static_library()
     @project.targets.each do |target_obj|
         next if target_obj.name != @main_target.name 
-    
+
+        puts "Found target"
+
+        if (!@swiftFile.nil?)
+          puts "Writing swift file to target"
+
+          buildFiles = target_obj.add_file_references([@swiftFile])
+
+          puts "Written swift file to target"
+        end 
+
         target_obj.build_configuration_list.build_configurations.each do |build_configuration| 
             configuration_found = true
-        
 
+            
+            # Add other linker flags
             build_settings = build_configuration.build_settings
             codesign_settings = {
-                'OTHER_LDFLAGS' => '$(inherited) -force_load libTrace.a',
+                'OTHER_LDFLAGS' => '$(inherited) -ObjC -force_load libTrace.a',
                 'LIBRARY_SEARCH_PATH' => '$(inherited) $(PROJECT_DIR)/apm-cocoa-sdk',
+                
             }
+
+            if (!@swiftFile.nil?)
+              codesign_settings['SWIFT_VERSION'] = 5.0
+            end 
+
             build_settings.merge!(codesign_settings)
     
+            puts "Added other linker flag"
+            puts "New build settings: #{build_settings}"
+
+        end
+
+        # Add system libraries 
+
+        if !target_obj.frameworks_build_phase.file_display_names.include?("libc++.tbd")
+          puts "Added c++ library"
+
+          target_obj.add_system_library_tbd("c++")  
+        else 
+          puts "libc++.tbd library already exist"
+        end
+
+        if !target_obj.frameworks_build_phase.file_display_names.include?("libz.tbd")
+          puts "Added z library"
+
+          target_obj.add_system_library_tbd("z")  
+        else 
+          puts "libz.tbd library already exist"
+        end
+
+        # Add system frameworks
+        if !target_obj.frameworks_build_phase.file_display_names.include?("SystemConfiguration.framework")
+          puts "Added SystemConfiguration frameworks"
+
+          target_obj.add_system_framework("SystemConfiguration")  
+        else 
+          puts "SystemConfiguration framework already exist"
         end
     end
     @project.save
+
+    puts "Saving project"
   end
 
   def register_resource()

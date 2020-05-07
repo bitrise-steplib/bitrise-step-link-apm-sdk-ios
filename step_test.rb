@@ -2,6 +2,7 @@ require 'xcodeproj'
 
 MAIN_TARGET = ENV['BITRISE_SCHEME']
 
+# Xcode project tests
 project = Xcodeproj::Project.open("#{ENV['BITRISE_PROJECT_PATH']}".gsub(/\.xcworkspace\b/, '.xcodeproj'))
 project.targets.each do |target_obj|
     next if target_obj.name != MAIN_TARGET
@@ -37,8 +38,26 @@ project.targets.each do |target_obj|
             exit 1
         end
     end
+    
+    frameworks_build_phase = target_obj.frameworks_build_phase
+    
+    if !frameworks_build_phase.file_display_names.include?("SystemConfiguration.framework")
+        puts "Target does not contain SystemConfiguration framework"
+        exit 1
+    end
+    
+    if !frameworks_build_phase.file_display_names.include?('libc++.tbd')
+        puts "Target does not contain c++ library"
+        exit 1
+    end
+    
+    if !frameworks_build_phase.file_display_names.include?('libz.tbd')
+        puts "Target does not contain Z library"
+        exit 1
+    end
 end
 
+# Files tests
 apm_library_path = "#{ENV['BITRISE_PROJECT_PATH']}/../libTrace.a"
 if !File.file?(apm_library_path)
     puts "Trace library not found at #{apm_library_path}"
@@ -51,7 +70,14 @@ if !File.file?(bitrise_configuration_path)
     exit 1
 end
 
+# plist tests
 plist = Xcodeproj::Plist.read_from_path(bitrise_configuration_path)
+
+if plist.nil?
+    puts "plist does not exist"
+    exit 1
+end
+
 if plist['APM_COLLECTOR_TOKEN'] != ENV['APM_COLLECTOR_TOKEN']
     puts "Collector token #{plist['APM_COLLECTOR_TOKEN']} in plist does not match test token #{ENV['APM_COLLECTOR_TOKEN']}"
     exit 1
