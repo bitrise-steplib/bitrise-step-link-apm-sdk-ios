@@ -38,7 +38,7 @@ class ProjectHelper
       return
     end
 
-    puts "Writting swift file to project since the project does not have any files"
+    puts "Writing swift file to project since the project does not have any files"
 
     # create swift file
     swiftPath = "#{File.dirname(@project.path)}/bitrise_empty_swift_file.swift"
@@ -60,7 +60,7 @@ class ProjectHelper
         puts "Found target"
 
         if (!@swiftFile.nil?)
-          puts "Writting swift file to target"
+          puts "Writing swift file to target"
 
           buildFiles = target_obj.add_file_references([@swiftFile])
 
