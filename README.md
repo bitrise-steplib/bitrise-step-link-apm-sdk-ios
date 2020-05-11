@@ -1,8 +1,8 @@
-# Xcode Link Bitrise APM library
+# Inject Bitrise Trace SDK
 
-Link the Bitrise APM library during the XCode build process into the resulting artifact.
+Link the Bitrise Trace SDK during the build process into the resulting artifact.
 
-The step works by modifying the project.pbxproj descriptor to include necessary flags, frameworks and
+The step works by modifying the relevant project descriptor files to include necessary flags, frameworks and
 variables for linking.
 
 ## How to use this Step

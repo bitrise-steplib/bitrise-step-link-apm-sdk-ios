@@ -1,12 +1,12 @@
-title: Xcode Link Bitrise APM library
-summary: Link Bitrise APM library during the Xcode build process into the resulting artifact.
+title: Inject Bitrise Trace SDK
+summary: Link the Bitrise Trace SDK during the build process into the resulting artifact.
 description: |
-  Link Bitrise APM library during the Xcode build process into the resulting artifact.
+  Link Bitrise Trace SDK during the Xcode build process into the resulting artifact.
 
-  The step modifies the build settings in the project.pbxcode descriptor. 
-website: https://github.com/bitrise-steplib/bitrise-step-link-apm-sdk-ios
-source_code_url: https://github.com/bitrise-steplib/bitrise-step-link-apm-sdk-ios
-support_url: https://github.com/bitrise-steplib/bitrise-step-link-apm-sdk-ios/issues
+  The step works by modifying the relevant project descriptor files to include necessary flags and variables for linking.
+website: https://github.com/bitrise-steplib/steps-inject-bitrise-trace-sdk
+source_code_url: https://github.com/bitrise-steplib/steps-inject-bitrise-trace-sdk
+support_url: https://github.com/bitrise-steplib/steps-inject-bitrise-trace-sdk/issues
 
 project_type_tags:
   - ios
@@ -27,16 +27,16 @@ inputs:
   - scheme: $BITRISE_SCHEME
     opts:
       title: "Scheme name"
-      summary: ""
+      summary: "The Scheme to use. For Apple related platforms only"
       description: |-
-        The Scheme to use.
+        The Scheme to use. For Apple related platforms only
       is_required: true
   - lib_version: latest
     opts:
       title: Library version
-      summary: The version of the Bitrise APM library to link into the app.
+      summary: The version of the Bitrise Trace SDK to link into the app.
       description: |-
-        The version of the Bitrise APM library to link into the app.
+        The version of the Bitrise Trace SDK to link into the app.
       
-        List of available releases https://github.com/bitrise-io/apm-cocoa-sdk/releases
+        List of available releases for Apple related platforms: https://github.com/bitrise-io/apm-cocoa-sdk/releases
       is_required: true
