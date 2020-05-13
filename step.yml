@@ -1,9 +1,21 @@
 title: Add Trace SDK
-summary: Link the Bitrise Trace SDK during the build process into the resulting artifact.
+summary: Add the Trace SDK during the Xcode build process.
 description: |
-  Link Bitrise Trace SDK during the Xcode build process into the resulting artifact.
+  Adds the Trace SDK static library during the Xcode build process into the resulting app artifact.
+  
+  iOS:
+    The step works by linking and modifying the relevant Xcode project descriptor files to include necessary configurations in `other linker flags`. These are the following:
+      - Trace static library path
+      - System libraries: `C` and `C++` 
+      - System Framework `SystemConfiguration.framework`
+    
+    System libraries and frameworks are linked if they are not present. It’s recommended to add this step just before the Xcode build and archive step. 
+    This step is compatible with all Xcode projects that use Swift only, interoperability (mixed) and Objective-C only languages. 
 
-  The step works by modifying the relevant project descriptor files to include necessary flags and variables for linking.
+  Android:
+    TBA.
+    
+  Once the app has been deployed, developers can view the results of the app in the Trace addon.
 website: https://github.com/bitrise-steplib/bitrise-step-add-trace-sdk
 source_code_url: https://github.com/bitrise-steplib/bitrise-step-add-trace-sdk
 support_url: https://github.com/bitrise-steplib/bitrise-step-add-trace-sdk/issues
