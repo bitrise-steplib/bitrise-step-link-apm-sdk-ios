@@ -4,9 +4,9 @@ description: |
   Link Bitrise Trace SDK during the Xcode build process into the resulting artifact.
 
   The step works by modifying the relevant project descriptor files to include necessary flags and variables for linking.
-website: https://github.com/bitrise-steplib/steps-inject-bitrise-trace-sdk
-source_code_url: https://github.com/bitrise-steplib/steps-inject-bitrise-trace-sdk
-support_url: https://github.com/bitrise-steplib/steps-inject-bitrise-trace-sdk/issues
+website: https://github.com/bitrise-steplib/bitrise-step-add-trace-sdk
+source_code_url: https://github.com/bitrise-steplib/bitrise-step-add-trace-sdk
+support_url: https://github.com/bitrise-steplib/bitrise-step-add-trace-sdk/issues
 
 project_type_tags:
   - ios
