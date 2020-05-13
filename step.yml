@@ -1,4 +1,4 @@
-title: Inject Bitrise Trace SDK
+title: Add Trace SDK
 summary: Link the Bitrise Trace SDK during the build process into the resulting artifact.
 description: |
   Link Bitrise Trace SDK during the Xcode build process into the resulting artifact.
