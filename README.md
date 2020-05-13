@@ -1,4 +1,4 @@
-# Inject Bitrise Trace SDK
+# Add Bitrise Trace SDK
 
 Link the Bitrise Trace SDK during the build process into the resulting artifact.
 
