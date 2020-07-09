@@ -26,15 +26,15 @@ project.targets.each do |target_obj|
         end
 
         if build_settings['LIBRARY_SEARCH_PATH'] 
-            if !build_settings['LIBRARY_SEARCH_PATH'].include? "$(inherited)" || !(build_settings['LIBRARY_SEARCH_PATH'].include? "$(PROJECT_DIR)/apm-cocoa-sdk")
+            if !build_settings['LIBRARY_SEARCH_PATH'].include? "$(inherited)" || !(build_settings['LIBRARY_SEARCH_PATH'].include? "$(PROJECT_DIR)/trace-cocoa-sdk")
                 puts "Target '#{target_obj.name}' with '#{build_configuration.name}' configuration does not contain expected build settings"
-                puts "Expected LIBRARY_SEARCH_PATH should include '$(inherited)' and '$(PROJECT_DIR)/apm-cocoa-sdk'"
+                puts "Expected LIBRARY_SEARCH_PATH should include '$(inherited)' and '$(PROJECT_DIR)/trace-cocoa-sdk'"
                 puts "Actual LIBRARY_SEARCH_PATH: #{build_settings['LIBRARY_SEARCH_PATH']}"
                 exit 1
             end
         else
             puts "Target '#{target_obj.name}' with '#{build_configuration.name}' configuration does not contain LIBRARY_SEARCH_PATH"
-            puts "Expected LIBRARY_SEARCH_PATH should include '$(inherited)' and '$(PROJECT_DIR)/apm-cocoa-sdk'"
+            puts "Expected LIBRARY_SEARCH_PATH should include '$(inherited)' and '$(PROJECT_DIR)/trace-cocoa-sdk'"
             exit 1
         end
     end

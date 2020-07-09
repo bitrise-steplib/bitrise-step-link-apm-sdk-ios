@@ -75,7 +75,7 @@ class ProjectHelper
             build_settings = build_configuration.build_settings
             codesign_settings = {
                 'OTHER_LDFLAGS' => '$(inherited) -ObjC -force_load libTrace.a',
-                'LIBRARY_SEARCH_PATH' => '$(inherited) $(PROJECT_DIR)/apm-cocoa-sdk',
+                'LIBRARY_SEARCH_PATH' => '$(inherited) $(PROJECT_DIR)/trace-cocoa-sdk',
                 
             }
 

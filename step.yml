@@ -50,5 +50,5 @@ inputs:
       description: |-
         The version of the Bitrise Trace SDK to link into the app.
       
-        List of available releases for Apple related platforms: https://github.com/bitrise-io/apm-cocoa-sdk/releases
+        List of available releases for Apple related platforms: https://github.com/bitrise-io/trace-cocoa-sdk/releases
       is_required: true
