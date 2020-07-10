@@ -21,6 +21,8 @@ workflows:
     - BITRISE_SCHEME: "iOS Sample"
     after_run:
     - _common
+    - _test_project_pod
+    - _test_project_build
 
   test_workflow_swift:
     envs:
@@ -29,6 +31,8 @@ workflows:
     - BITRISE_SCHEME: "sample-apps-ios-workspace-swift"
     after_run:
     - _common
+    - _test_workflow_swift_pod
+    - _test_workflow_swift_build
 
   test_workflow_objc:
     envs:
@@ -37,6 +41,7 @@ workflows:
     - BITRISE_SCHEME: "ios-simple-objc"
     after_run:
     - _common
+    - _test_workflow_objc_build
 
   _prepare:
     steps:
@@ -46,7 +51,6 @@ workflows:
         inputs:
         - content: |-
             #!/usr/bin/env bash
-            set -ex
 
             gem install bundler --force
             gem update --system
@@ -56,9 +60,68 @@ workflows:
         inputs:
         - content: |-
             #!/usr/bin/env bash
-            set -ex
 
             bundle exec rspec
+
+  _test_workflow_swift_pod:
+    steps:
+    - script:
+        title: Pod install setup
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            
+            cd $ORIGINAL_WORK_DIR/_tmp/sample-apps-ios-workspace-swift/
+
+            pod install
+  
+  _test_project_pod:
+    steps:
+    - script:
+        title: Pod install setup
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            
+            cd $ORIGINAL_WORK_DIR/_tmp/iOS-Sample/
+
+            pod install
+
+  _test_workflow_swift_build:
+    steps:
+    - script:
+        title: Building Xcode project 
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+
+            cd $ORIGINAL_WORK_DIR/_tmp/sample-apps-ios-workspace-swift/
+
+            xcodebuild build clean -workspace sample-apps-ios-workspace-swift.xcworkspace -scheme sample-apps-ios-workspace-swift -configuration Debug CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED="NO" CODE_SIGN_ENTITLEMENTS="" CODE_SIGNING_ALLOWED="NO" | xcpretty
+
+  _test_workflow_objc_build:
+    steps:
+    - script:
+        title: Building Xcode project 
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+
+            cd $ORIGINAL_WORK_DIR/_tmp/sample-apps-ios-simple-objc/ios-simple-objc
+
+            xcodebuild build clean -project ios-simple-objc.xcodeproj -scheme ios-simple-objc -configuration Debug CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED="NO" CODE_SIGN_ENTITLEMENTS="" CODE_SIGNING_ALLOWED="NO" | xcpretty
+
+  _test_project_build:
+    steps:
+    - script:
+        title: Building Xcode project 
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+
+            cd $ORIGINAL_WORK_DIR/_tmp/iOS-Sample/
+
+            xcodebuild build clean -workspace "iOS Sample.xcworkspace" -scheme "iOS Sample" -configuration Debug CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED="NO" CODE_SIGN_ENTITLEMENTS="" CODE_SIGNING_ALLOWED="NO" | xcpretty
 
   _common:
     steps:
@@ -67,7 +130,6 @@ workflows:
         inputs:
         - content: |-
             #!/usr/bin/env bash
-            set -ex
             
             cd $ORIGINAL_WORK_DIR
             rm -rf "_tmp"
@@ -82,7 +144,6 @@ workflows:
         inputs:
         - content: |-
             #!/usr/bin/env bash
-            set -ex
 
             git clone $TEST_REPO
     - path::./:
