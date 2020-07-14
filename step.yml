@@ -12,6 +12,8 @@ description: |
     System libraries and frameworks are linked if they are not present. It’s recommended to add this step just before the Xcode build and archive step. 
     This step is compatible with all Xcode projects that use Swift only, interoperability (mixed) and Objective-C only languages. 
 
+    Source code for the iOS SDK can be found here: https://github.com/bitrise-io/trace-cocoa-sdk
+
   Android:
     TBA.
     
@@ -27,7 +29,7 @@ project_type_tags:
 type_tags:
   - utility
 
-is_requires_admin_user: true
+is_requires_admin_user: false
 inputs:
   - project_path: $BITRISE_PROJECT_PATH
     opts:
