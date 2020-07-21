@@ -191,7 +191,6 @@ workflows:
         inputs:
         - content: |-
             #!/usr/bin/env bash
-            set -ex
 
             ruby ./../step_test.rb "$BITRISE_PROJECT_PATH"
     - create-zip@0.9.0:
