@@ -1,7 +1,10 @@
 source 'https://rubygems.org'
 
+# Step
 gem 'down'
 gem 'json'
 gem 'plist'
-gem 'rspec'
 gem 'xcodeproj'
+
+# Test
+gem 'rspec'
