@@ -18,6 +18,11 @@ description: |
     TBA.
     
   Once the app has been deployed, developers can view the results of the app in the Trace addon.
+
+  Trace: https://trace.bitrise.io
+  What Trace? https://www.bitrise.io/add-ons/trace-mobile-monitoring
+  Getting started guide: https://trace.bitrise.io/o/getting-started
+  
 website: https://github.com/bitrise-steplib/bitrise-step-add-trace-sdk
 source_code_url: https://github.com/bitrise-steplib/bitrise-step-add-trace-sdk
 support_url: https://github.com/bitrise-steplib/bitrise-step-add-trace-sdk/issues
