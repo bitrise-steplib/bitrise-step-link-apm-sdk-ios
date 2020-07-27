@@ -17,6 +17,10 @@ Android:
 
 Once the app has been deployed, developers can view the results of the app in the Trace addon.
 
+Trace: [https://trace.bitrise.io](https://trace.bitrise.io)
+What's Trace? [https://www.bitrise.io/add-ons/trace-mobile-monitoring](https://www.bitrise.io/add-ons/trace-mobile-monitoring)
+Getting started guide: [https://trace.bitrise.io/o/getting-started](https://trace.bitrise.io/o/getting-started)
+  
 ## How to use this Step
 
 Can be run directly with the [bitrise CLI](https://github.com/bitrise-io/bitrise),
