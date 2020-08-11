@@ -3,7 +3,7 @@ require_relative 'project_helper'
 require_relative 'functions'
 
 if !ENV['APM_COLLECTOR_TOKEN']
-    puts 'Error: missing APM_COLLECTOR_TOKEN env'
+    puts 'Error: missing APM_COLLECTOR_TOKEN env, double check envman and if Trace has been enabled in app by navigating to Addon->Trace'
     exit 1
 end
 
