@@ -84,6 +84,6 @@ if plist['APM_COLLECTOR_TOKEN'] != ENV['APM_COLLECTOR_TOKEN']
 end
 
 if plist['APM_INSTALLATION_SOURCE'] != "Trace step"
-    puts "Collector token #{plist['APM_COLLECTOR_TOKEN']} in plist does not match test token #{ENV['APM_COLLECTOR_TOKEN']}"
+    puts "APM_INSTALLATION_SOURCE has not been set to Trace step"
     exit 1
 end
