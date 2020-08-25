@@ -3,7 +3,7 @@ require_relative 'project_helper'
 require_relative 'functions'
 
 if !ENV['APM_COLLECTOR_TOKEN']
-    puts 'Error: missing APM_COLLECTOR_TOKEN env, double check envman and if Trace has been enabled in app by navigating to Addon->Trace'
+    puts 'Error: missing APM_COLLECTOR_TOKEN env, double check envman and if Trace has been enabled in app by navigating to: Bitrise App->Addon->Trace'
     exit 1
 end
 
@@ -12,12 +12,12 @@ scheme = ENV['scheme']
 lib_version = ENV['lib_version']
 
 if project_path.empty?
-    puts "Error: BITRISE_PROJECT_PATH env var is required"
+    puts "Error: BITRISE_PROJECT_PATH env var is required and cannot be empty. #{project_path}"
     exit 1
 end
 
 if scheme.empty?
-    puts "Error: BITRISE_SCHEME env var is required"
+    puts "Error: BITRISE_SCHEME env var is required and cannot be empty. #{scheme}"
     exit 1
 end
 
