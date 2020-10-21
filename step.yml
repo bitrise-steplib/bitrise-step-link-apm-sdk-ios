@@ -12,6 +12,8 @@ description: |
     System libraries and frameworks are linked if they are not present. It’s recommended to add this step just before the Xcode build and archive step. 
     This step is compatible with all Xcode projects that use Swift only, interoperability (mixed) and Objective-C only languages. 
 
+    Note: For Xcode 11 please use the version `1.6.1`. 
+
     Source code for the iOS SDK can be found here: https://github.com/bitrise-io/trace-cocoa-sdk
 
   Android:
@@ -54,7 +56,8 @@ inputs:
       title: Library version
       summary: The version of the Bitrise Trace SDK to link into the app.
       description: |-
-        The version of the Bitrise Trace SDK to link into the app.
+        The version of the Bitrise Trace SDK to link into the app. 
+        Note: For Xcode 11 please use the last supported version `1.6.1`. 
       
         List of available releases for Apple related platforms: https://github.com/bitrise-io/trace-cocoa-sdk/releases
       is_required: true
