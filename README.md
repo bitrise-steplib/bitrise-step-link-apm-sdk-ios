@@ -12,6 +12,8 @@ System libraries and frameworks are linked if they are not present. It’s recom
 
 This step is compatible with all Xcode projects that use Swift only, interoperability (mixed) and Objective-C only languages. 
 
+Note: For Xcode 11 please use the last supported version `1.6.1`. 
+
 Android:
    TBA.
 
