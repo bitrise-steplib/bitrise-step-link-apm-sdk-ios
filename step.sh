@@ -9,6 +9,7 @@ gem install "down" --silent
 gem install "json" --silent
 gem install "plist" --silent
 gem install "xcodeproj" --silent
+gem install "rubyzip" --silent
 
 echo "Installed step dependencies"
 echo "Checking Xcode version"
