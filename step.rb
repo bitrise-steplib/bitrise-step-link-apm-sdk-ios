@@ -10,6 +10,7 @@ end
 project_path = ENV['project_path']
 scheme = ENV['scheme']
 lib_version = ENV['lib_version']
+xcode_version = ENV['APM_XCODE_VERSION']
 
 if project_path.empty?
     puts "Error: BITRISE_PROJECT_PATH env var is required and cannot be empty. #{project_path}"
@@ -26,7 +27,15 @@ if lib_version.empty?
     exit 1
 end
 
-url = "https://monitoring-sdk.firebaseapp.com/#{lib_version}/libTrace.a"
+path = lib_version
+
+if ['Xcode 11.5', 'Xcode 11.6', 'Xcode 11.7'].include? xcode_version
+    path += " (Xcode 11.7)" # Xcode 11 builds are built using Xcode 11.7. Update Bitrise stack first
+end
+
+puts "Will start download for version: #{path}"
+
+url = "https://monitoring-sdk.firebaseapp.com/#{path}/libTrace.a"
 tmpf = download_library(url)
 if tmpf == nil
     puts "Error downloading Bitrise Trace library version #{lib_version} from #{url}: #{e.message}"
