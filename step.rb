@@ -1,4 +1,5 @@
 require "fileutils"
+require 'zip'
 require_relative 'project_helper'
 require_relative 'functions'
 
@@ -35,7 +36,7 @@ end
 
 puts "Will start download for version: #{path}"
 
-url = "https://monitoring-sdk.firebaseapp.com/#{path}/libTrace.a"
+url = "https://monitoring-sdk.firebaseapp.com/#{path}/libTrace.a.zip"
 tmpf = download_library(url)
 if tmpf == nil
     puts "Error downloading Bitrise Trace library version #{lib_version} from #{url}: #{e.message}"
@@ -48,7 +49,27 @@ puts
 puts "Starting step with path: #{project_path}, scheme: #{scheme}, trace version: #{lib_version}"
 puts
 
-FileUtils.mv(tmpf.path, "#{File.dirname(project_path)}/#{tmpf.original_filename}")
+fileLocation = "#{File.dirname(project_path)}/#{tmpf.original_filename}"
+FileUtils.mv(tmpf.path, fileLocation)
+
+# Unzip file
+
+puts "Unzipping Trace SDK"
+
+Zip::File.open(fileLocation) do |zip_file|
+    zip_file.each do |f|
+        if f.name == "libTrace.a"
+            fpath = File.join("#{File.dirname(project_path)}", f.name)
+            zip_file.extract(f, fpath) unless File.exist?(fpath)
+            
+            puts "Unzipping: #{fpath}"
+        else 
+            puts "Skipping file: #{f.name}"
+        end
+    end
+end
+
+puts "Unzipped Trace SDK"
 
 helper = ProjectHelper.new(project_path, scheme)
 
