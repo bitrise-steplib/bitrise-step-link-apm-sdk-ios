@@ -11,6 +11,11 @@ gem install "plist" --silent
 gem install "xcodeproj" --silent
 
 echo "Installed step dependencies"
+echo "Checking Xcode version"
+
+export APM_XCODE_VERSION=$(xcodebuild -version | grep 'Xcode\s[0-9.]*')
+
+echo "Xcode version: ${APM_XCODE_VERSION}"
 
 echo "Running Trace step"
 
