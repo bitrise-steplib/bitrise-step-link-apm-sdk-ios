@@ -30,8 +30,8 @@ end
 
 path = lib_version
 
-if ['Xcode 11.5', 'Xcode 11.6', 'Xcode 11.7'].include? xcode_version
-    path += " (Xcode 11.7)" # Xcode 11 builds are built using Xcode 11.7. Update Bitrise stack first
+if xcode_version.start_with?("Xcode 11") 
+    path += " (Xcode 11.7)" # Xcode 11 projects are built using Xcode 11.7. Update Bitrise stack first
 end
 
 puts "Will start download for version: #{path}"

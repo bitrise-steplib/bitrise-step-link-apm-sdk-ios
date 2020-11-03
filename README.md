@@ -12,6 +12,8 @@ System libraries and frameworks are linked if they are not present. It’s recom
 
 This step is compatible with all Xcode projects that use Swift only, interoperability (mixed) and Objective-C only languages. 
 
+Stack: Xcode 11 and 12 supported. 
+
 Android:
    TBA.
 
