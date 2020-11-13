@@ -57,7 +57,7 @@ class ProjectHelper
     @project.targets.each do |target_obj|
         next if target_obj.name != @main_target.name 
 
-        puts "Found target"
+        puts "Found iOS app target: #{target_obj.name}"
 
         if (!@swiftFile.nil?)
           puts "Writing swift file to target"
@@ -84,10 +84,9 @@ class ProjectHelper
             end 
 
             build_settings.merge!(codesign_settings)
-    
-            puts "Added other linker flag"
-            puts "New build settings: #{build_settings}"
-
+            
+            puts "Added other linker flag for target: #{target_obj.name}, configuration: #{build_configuration.type}"
+            puts "New build settings(#{build_configuration.type}): #{build_settings}"
         end
 
         # Add system libraries 
@@ -116,6 +115,7 @@ class ProjectHelper
         else 
           puts "SystemConfiguration framework already exist"
         end
+
     end
     @project.save
 
