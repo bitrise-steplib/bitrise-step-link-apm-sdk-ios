@@ -5,11 +5,25 @@ THIS_SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "Installing step dependencies"
 
 # dependencies
-gem install "down" --silent
-gem install "json" --silent
-gem install "plist" --silent
-gem install "xcodeproj" --silent
-gem install "rubyzip" --silent
+if ! gem list | grep "down"; then 
+    gem install "down" --silent --conservative
+fi;
+
+if ! gem list | grep "json"; then 
+    gem install "json" --silent --conservative
+fi;
+
+if ! gem list | grep "plist"; then 
+    gem install "plist" --silent --conservative
+fi;
+
+if ! gem list | grep "xcodeproj"; then 
+    gem install "xcodeproj" --silent --conservative
+fi;
+
+if ! gem list | grep "rubyzip"; then 
+    gem install "rubyzip" --silent --conservative
+fi;
 
 echo "Installed step dependencies"
 echo "Checking Xcode version"
