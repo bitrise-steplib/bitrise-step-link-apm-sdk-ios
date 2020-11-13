@@ -54,9 +54,9 @@ inputs:
   - lib_version: latest
     opts:
       title: Library version
-      summary: The version of the Bitrise Trace SDK to link into the app.
+      summary: The version of the Bitrise Trace SDK to link into the app. See more https://github.com/bitrise-io/trace-cocoa-sdk/releases
       description: |-
-        The version of the Bitrise Trace SDK to link into the app. 
+        The version of the Bitrise Trace SDK to link into the app. Use `latest` to always download the most recent stable release.
       
         List of available releases for Apple related platforms: https://github.com/bitrise-io/trace-cocoa-sdk/releases
       is_required: true

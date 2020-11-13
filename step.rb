@@ -43,7 +43,6 @@ if tmpf == nil
     exit 1
 end
 
-puts 
 puts "Downloaded Trace library"
 puts 
 puts "Starting step with path: #{project_path}, scheme: #{scheme}, trace version: #{lib_version}"
@@ -54,7 +53,7 @@ FileUtils.mv(tmpf.path, fileLocation)
 
 # Unzip file
 
-puts "Unzipping Trace SDK"
+puts "Unzipping Trace SDK package"
 
 Zip::File.open(fileLocation) do |zip_file|
     zip_file.each do |f|
@@ -69,7 +68,10 @@ Zip::File.open(fileLocation) do |zip_file|
     end
 end
 
-puts "Unzipped Trace SDK"
+puts "Unzipped Trace SDK package"
+
+puts 
+puts "Opening Xcode project: #{project_path}, scheme: #{scheme}"
 
 helper = ProjectHelper.new(project_path, scheme)
 
