@@ -116,6 +116,24 @@ class ProjectHelper
           puts "SystemConfiguration framework already exist"
         end
 
+        # Add post script
+        puts "Installing post-script for uploading dSYMS"
+
+        shellScript = target_obj.new_shell_script_build_phase("Bitrise Trace SDK - Upload dSYM's")
+        shellScript.show_env_vars_in_log = '0'
+        shellScript.shell_script = <<~eos 
+          #!/bin/sh
+          set +o posix
+
+          echo "Bitrise Trace SDK - starting Upload dSYM's"
+          
+          # See script header for more information 
+          /usr/bin/xcrun --sdk macosx swift <(curl -Ls https://raw.githubusercontent.com/bitrise-io/trace-cocoa-sdk/main/UploadDSYM/main.swift)
+
+          echo "Bitrise Trace SDK - finished Upload dSYM's"
+        eos
+
+        puts "Installed post-script"
     end
     @project.save
 
