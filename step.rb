@@ -38,6 +38,7 @@ puts "Will start download for version: #{path}"
 
 url = "https://monitoring-sdk.firebaseapp.com/#{path}/libTrace.a.zip"
 tmpf = download_library(url)
+
 if tmpf == nil
     puts "Error downloading Bitrise Trace library version #{lib_version} from #{url}: #{e.message}"
     exit 1
@@ -62,6 +63,9 @@ Zip::File.open(fileLocation) do |zip_file|
             zip_file.extract(f, fpath) unless File.exist?(fpath)
             
             puts "Unzipping: #{fpath}"
+        elsif f.name == "VERSION"
+            puts "Trace SDK Version unzipped: #{zip_file.read("VERSION")}"
+            puts "Skipping file: #{f.name}"
         else 
             puts "Skipping file: #{f.name}"
         end
