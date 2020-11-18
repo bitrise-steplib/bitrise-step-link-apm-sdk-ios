@@ -5,23 +5,23 @@ THIS_SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo "Installing step dependencies"
 
 # dependencies
-if ! gem list | grep "down"; then 
+if ! gem list -i "^down$"; then 
     gem install "down" --silent --conservative
 fi;
 
-if ! gem list | grep "json"; then 
+if ! gem list -i "^json$"; then 
     gem install "json" --silent --conservative
 fi;
 
-if ! gem list | grep "plist"; then 
+if ! gem list -i "^plist$"; then  
     gem install "plist" --silent --conservative
 fi;
 
-if ! gem list | grep "xcodeproj"; then 
+if ! gem list -i "^xcodeproj$"; then 
     gem install "xcodeproj" --silent --conservative
 fi;
 
-if ! gem list | grep "rubyzip"; then 
+if ! gem list -i "^rubyzip$"; then 
     gem install "rubyzip" --silent --conservative
 fi;
 
