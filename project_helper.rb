@@ -127,7 +127,9 @@ class ProjectHelper
 
           echo "Bitrise Trace SDK - starting Upload dSYM's"
           
-          # See script header for more information 
+          # See script header for more information - https://github.com/bitrise-io/trace-cocoa-sdk/blob/main/UploadDSYM/main.swift#L4
+          
+          # Run script
           /usr/bin/xcrun --sdk macosx swift <(curl -Ls --retry 3 --connect-timeout 20 https://raw.githubusercontent.com/bitrise-io/trace-cocoa-sdk/main/UploadDSYM/main.swift)
 
           echo "Bitrise Trace SDK - finished Upload dSYM's"
