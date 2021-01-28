@@ -5,24 +5,26 @@ Adds the Trace SDK static library during the Xcode build process into the result
 iOS:
    The step works by linking and modifying the relevant Xcode project descriptor files to include necessary configurations in `other linker flags`. These are the following:
    * Trace static library path
-   * System libraries: `C` and `C++` 
+   * System libraries: `C` and `C++`
    * System Framework `SystemConfiguration.framework`
 
-System libraries and frameworks are linked if they are not present. It’s recommended to add this step just before the Xcode build and archive step. 
+System libraries and frameworks are linked if they are not present. It’s recommended to add this step just before the Xcode build and archive step.
 
-This step is compatible with all Xcode projects that use Swift only, interoperability (mixed) and Objective-C only languages. 
+This step is compatible with all Xcode projects that use Swift only, interoperability (mixed) and Objective-C only languages.
 
-Stack: Xcode 11 and 12 supported. 
+Stack: Xcode 11 and 12 supported.
 
 Android:
-   TBA.
+For Android you have to use a different step. Please find the details below.
+**Source for Android step:**
+[https://github.com/bitrise-steplib/bitrise-add-trace-sdk-android](https://github.com/bitrise-steplib/bitrise-add-trace-sdk-android)
 
 Once the app has been deployed, developers can view the results of the app in the Trace addon.
 
 Trace: [https://trace.bitrise.io](https://trace.bitrise.io)
 What's Trace? [https://www.bitrise.io/add-ons/trace-mobile-monitoring](https://www.bitrise.io/add-ons/trace-mobile-monitoring)
 Getting started guide: [https://trace.bitrise.io/o/getting-started](https://trace.bitrise.io/o/getting-started)
-  
+
 ## How to use this Step
 
 Can be run directly with the [bitrise CLI](https://github.com/bitrise-io/bitrise),
