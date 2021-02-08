@@ -115,4 +115,4 @@ You can share your Step or step version with the [bitrise CLI](https://github.co
 That's all ;)
 
 ## License
-Trace is released under the MIT license. See LICENSE for details.
+Add Trace SDK is released under the MIT license. See [LICENSE](https://github.com/bitrise-steplib/bitrise-step-add-trace-sdk/blob/master/LICENSE) for details.
