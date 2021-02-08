@@ -132,6 +132,8 @@ class ProjectHelper
           # Run script
           /usr/bin/xcrun --sdk macosx swift <(curl -Ls --retry 3 --connect-timeout 20 https://raw.githubusercontent.com/bitrise-io/trace-cocoa-sdk/main/UploadDSYM/main.swift)
 
+          # Script logs can be viewed in Xcode report navigator or Bitrise app build logs
+
           echo "Bitrise Trace SDK - finished Upload dSYM's"
         eos
 

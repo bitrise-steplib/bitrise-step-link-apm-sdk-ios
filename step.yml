@@ -1,5 +1,8 @@
 title: Add Trace SDK
-summary: Add the Trace SDK during the Xcode build process.
+summary: |
+  Add the Trace SDK before the build process
+  
+  Important: Please read the Trace license terms in the SDK. By clicking here to add the Trace SDK, you are agreeing to those license terms.
 description: |
   Adds the Trace SDK static library during the Xcode build process into the resulting app artifact.
   
@@ -17,7 +20,10 @@ description: |
     Supported stack: Xcode 11 and 12
 
   Android:
-    TBA.
+  For Android, please find the details below.
+  **Source for Android step:**
+  [https://github.com/bitrise-steplib/bitrise-add-trace-sdk-android](https://github.com/bitrise-steplib/bitrise-add-trace-sdk-android)
+
     
   Once the app has been deployed, developers can view the results of the app in the Trace addon.
 
