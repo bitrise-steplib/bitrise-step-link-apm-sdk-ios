@@ -33,7 +33,7 @@ workflows:
     envs:
       - MY_STEPLIB_REPO_FORK_GIT_URL: https://github.com/shams-ahmed/bitrise-steplib.git
       - STEP_ID_IN_STEPLIB: add-trace-sdk
-      - STEP_GIT_VERION_TAG_TO_SHARE: 1.2.1
+      - STEP_GIT_VERION_TAG_TO_SHARE: 1.2.2
       - STEP_GIT_CLONE_URL: https://github.com/bitrise-steplib/bitrise-step-add-trace-sdk.git
     before_run:
     - audit-this-step
