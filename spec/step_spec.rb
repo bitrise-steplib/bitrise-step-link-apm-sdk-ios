@@ -6,7 +6,7 @@ describe 'download_library' do
         lib_version = "latest"
         
         f = download_library("https://monitoring-sdk.firebaseapp.com/latest/libTrace.a.zip")
-        expect(f.original_filename).to eq("libTrace.a")
+        expect(f.original_filename).to eq("libTrace.a.zip")
     end
 
     it 'returns zip file download is successful' do
