@@ -2,11 +2,11 @@ require 'zip'
 require_relative './../functions.rb'
 
 describe 'download_library' do
-    it 'returns file download is successful' do
+    it 'returns latest file download is successful' do
         lib_version = "latest"
         
-        f = download_library("https://monitoring-sdk.firebaseapp.com/#{lib_version}/libTrace.a")
-        expect(f.original_filename).to eq("libTrace.a")
+        f = download_library("https://monitoring-sdk.firebaseapp.com/latest/libTrace.a.zip")
+        expect(f.original_filename).to eq("libTrace.a.zip")
     end
 
     it 'returns zip file download is successful' do
