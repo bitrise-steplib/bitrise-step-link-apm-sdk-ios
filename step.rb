@@ -49,7 +49,19 @@ puts
 puts "Starting step with path: #{project_path}, scheme: #{scheme}, trace version: #{lib_version}"
 puts
 
+if File.exist?(tmpf.path) == false
+    puts "Downloaded file does not exist at: #{tmpf.path}"
+end
+
 fileLocation = "#{File.dirname(project_path)}/#{tmpf.original_filename}"
+
+puts "Moving downloaded file to: #{fileLocation}"
+
+if Dir.exist?(fileLocation) == false 
+    puts "File location path is malformed: #{fileLocation}"
+    puts "Make sure path is a relative path with the full root"
+end
+
 FileUtils.mv(tmpf.path, fileLocation)
 
 # Unzip file
