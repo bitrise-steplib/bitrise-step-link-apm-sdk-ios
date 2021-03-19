@@ -48,7 +48,7 @@ inputs:
       title: "Project (or Workspace) path"
       summary: ""
       description: |-
-        A `.xcodeproj` or `.xcworkspace` path.
+        A `.xcodeproj` or `.xcworkspace` path. Must be a relative path
       is_required: true
   - scheme: $BITRISE_SCHEME
     opts:

@@ -56,6 +56,13 @@ workflows:
     - _common
     - _test_project_pod
     - _test_project_build
+  test_project_badPath:
+    envs:
+    - TEST_REPO: https://github.com/bitrise-io/iOS-Sample.git
+    - BITRISE_PROJECT_PATH: "./Users/shamsahmed/bitrise-step-link-apm-sdk-ios/_tmp/iOS-Sample/iOS Sample.xcodeproj"
+    - BITRISE_SCHEME: "iOS Sample"
+    after_run:
+    - _common
 
   test_project_custom_workspace:
     envs:
