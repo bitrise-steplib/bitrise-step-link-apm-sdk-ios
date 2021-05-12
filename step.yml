@@ -1,6 +1,6 @@
-title: Add Trace SDK
+title: Add Trace SDK iOS
 summary: |
-  Add the Trace SDK before the build process
+  ** Add the Trace SDK before the build process **
   
   Important: Please read the Trace license terms in the SDK. By clicking here to add the Trace SDK, you are agreeing to those license terms.
 description: |

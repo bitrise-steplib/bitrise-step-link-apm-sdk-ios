@@ -1,4 +1,4 @@
-# Add Trace SDK
+# Add Trace SDK iOS
 
 Adds the Trace SDK static library during the Xcode build process into the resulting app artifact.
 
